@@ -1,0 +1,62 @@
+@import '../../styles/colors';
+
+.login-form {
+  width: 450px;
+
+  &-title {
+    font-size: 25px;
+    font-weight: 600;
+    color: $purple;
+    margin-bottom: 25px;
+  }
+
+  &-inputs {
+    width: 100%;
+
+    // .input-field-error-handler {
+    //   margin-bottom: 20px;
+    // }
+
+    .input-field-holder {
+      margin-bottom: 20px;
+    }
+  }
+
+  &-title-2 {
+    font-size: 16px;
+    font-weight: 300;
+    color: $purple;
+    margin-bottom: 25px;
+  }
+
+  &-link-to-login {
+    font-size: 16px;
+    font-weight: 600;
+    color: $purple;
+  }
+
+  button {
+    padding: 13px 34px;
+    outline: 0;
+    border: none;
+    width: 100%;
+    background-color: $purple;
+    color: $white;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    transition: 0.25s ease;
+    cursor: pointer;
+
+    @media (min-width: 1025px) {
+      &:hover {
+        box-shadow: 0 4px 10px 0 rgba(40, 40, 194, 0.39);
+      }
+    }
+  }
+}

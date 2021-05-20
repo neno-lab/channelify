@@ -1,0 +1,67 @@
+@import '../../styles/colors';
+
+.input-field-error-handler {
+  border: solid 1px $grayish;
+  border: none;
+  transition: 0.1s ease;
+  border-radius: 7px;
+
+  &.error {
+    border: solid 2px red;
+  }
+}
+
+.input-field-holder {
+  position: relative;
+  border: solid 1px $grayish;
+  transition: 0.1s ease;
+  border-radius: 7px;
+
+  &.active {
+    border: solid 2px $purple;
+  }
+
+  &.active > label {
+    font-size: 13px;
+    top: 5px;
+  }
+
+  &.error {
+    border: solid 2px red;
+  }
+
+  &.error > label {
+    font-size: 13px;
+    top: 5px;
+  }
+
+  label {
+    position: absolute;
+    top: 15.5px;
+    left: 15px;
+    transition: 0.25s ease;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $gray;
+  }
+
+  input {
+    outline: none;
+    padding: 25px 15px 7px;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    border-radius: 7px;
+    border: solid 1px $grayish;
+    background-color: $grayish;
+    color: $general-text;
+    width: 100%;
+  }
+}
