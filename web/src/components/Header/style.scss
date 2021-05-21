@@ -1,0 +1,30 @@
+@import '../../styles/colors';
+
+header {
+  background-color: $purple;
+  padding: 15px;
+  height: 85px;
+  width: 100%;
+  display: flex;
+
+  .header-container {
+    margin: 0 auto;
+    max-width: 1180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    width: auto;
+    height: 65px;
+    cursor: pointer;
+  }
+
+  .fas {
+    font-size: 40px;
+    color: $white;
+    cursor: pointer;
+  }
+}
