@@ -1,0 +1,17 @@
+@import '../../styles/colors';
+
+.link {
+  color: $white;
+  font-size: 30px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 30px;
+  letter-spacing: normal;
+  margin-bottom: 42px;
+  cursor: pointer;
+
+  &:last-of-type {
+    margin-bottom: 0px;
+  }
+}
