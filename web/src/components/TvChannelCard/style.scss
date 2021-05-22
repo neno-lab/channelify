@@ -1,0 +1,79 @@
+@import '../../styles/colors';
+
+.tv-channel-card {
+  width: 100%;
+  border: 2px solid $general-text;
+  border-radius: 13px;
+  padding: 30px;
+  margin-bottom: 30px;
+  transition: 0.25s ease;
+  pointer-events: auto;
+
+  &:last-of-type {
+    margin-bottom: 0px;
+  }
+
+  &.active {
+    border-color: $danger-red;
+    pointer-events: auto;
+  }
+
+  &.not-active {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
+  h2 {
+    color: $general-text;
+    font-size: 30px;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 30px;
+    letter-spacing: normal;
+    margin-bottom: 35px;
+  }
+
+  p {
+    color: $general-text;
+    font-size: 16px;
+    font-weight: 100;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-bottom: 25px;
+
+    span {
+      color: $general-text;
+      font-size: 16px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 16px;
+      letter-spacing: normal;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: normal;
+    background-color: $general-text;
+    color: $white;
+    transition: 0.25s ease;
+
+    &.active {
+      background-color: $danger-red;
+    }
+  }
+}

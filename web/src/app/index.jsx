@@ -18,7 +18,7 @@ import HeaderPopup from '../components/HeaderPopup';
 const App = (props) => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {props.isPopupOpen && <HeaderPopup />}
       <Router>
         <Switch>
@@ -52,9 +52,36 @@ const App = (props) => {
 
           <Route exact path='/' component={Login} />
           <Route exact path='/register' component={Registration} />
-          <Route exact path='/profile' component={Profile} />
-          <Route exact path='/statistics' component={Statistics} />
-          <Route exact path='/tv-channels' component={TvChannels} />
+          <Route
+            exact
+            path='/profile'
+            render={() => (
+              <>
+                <Header />
+                <Profile />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path='/statistics'
+            render={() => (
+              <>
+                <Header />
+                <Statistics />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path='/tv-channels'
+            render={() => (
+              <>
+                <Header />
+                <TvChannels />
+              </>
+            )}
+          />
         </Switch>
       </Router>
     </>

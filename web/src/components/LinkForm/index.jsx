@@ -13,8 +13,8 @@ const LinkForm = () => {
 
   return (
     <div className='link-form'>
-      {links.map((link) => {
-        return <Link title={link.title} />;
+      {links.map((link, index) => {
+        return <Link key={index} title={link.title} />;
       })}
     </div>
   );
