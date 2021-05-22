@@ -7,20 +7,22 @@ import {
 } from 'react-router-dom';
 import Login from '../views/Login';
 import Registration from '../views/Registration';
-import Profile from '../views/Profile';
 import Statistics from '../views/Statistics';
 import TvChannels from '../views/TvChannels';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
 import './style.scss';
 import HeaderPopup from '../components/HeaderPopup';
+import Popup from '../components/Popup';
 
 const App = (props) => {
   return (
     <>
-      {/* <Header /> */}
-      {props.isPopupOpen && <HeaderPopup />}
       <Router>
+        {props.popupId === 'header-popup' && props.isPopupOpen && (
+          <HeaderPopup />
+        )}
+        {props.popupId === 'popup' && props.isPopupOpen && <Popup />}
         <Switch>
           {/* <Route
       exact
@@ -52,16 +54,7 @@ const App = (props) => {
 
           <Route exact path='/' component={Login} />
           <Route exact path='/register' component={Registration} />
-          <Route
-            exact
-            path='/profile'
-            render={() => (
-              <>
-                <Header />
-                <Profile />
-              </>
-            )}
-          />
+
           <Route
             exact
             path='/statistics'
@@ -91,6 +84,7 @@ const App = (props) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     isPopupOpen: state.ui.popup.isOpen,
+    popupId: state.ui.popup.id,
   };
 };
 

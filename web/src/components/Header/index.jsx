@@ -11,7 +11,7 @@ const Header = (props) => {
         <Logo className='logo' />
         <i
           className='fas fa-bars'
-          onClick={() => props.dispatch(openPopup())}
+          onClick={() => props.dispatch(openPopup('header-popup'))}
         ></i>
       </div>
     </header>

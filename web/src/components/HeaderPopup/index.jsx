@@ -18,11 +18,11 @@ const HeaderPopup = (props) => {
           }, 250);
         }}
       ></i>
-      <LinkForm />
+      <LinkForm popupRef={popupRef} />
       <span></span>
       <div className='header-popup-info'>
         <h4>Username</h4>
-        <h4>Current Location ~ Terziceva 9</h4>
+        <h4>Your Location ~ Terziceva 9</h4>
       </div>
     </div>
   );
