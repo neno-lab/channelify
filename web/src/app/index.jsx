@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import './style.scss';
 import HeaderPopup from '../components/HeaderPopup';
 import Popup from '../components/Popup';
+import Loader from '../Loader';
 
 const App = (props) => {
   return (
@@ -23,6 +24,7 @@ const App = (props) => {
           <HeaderPopup />
         )}
         {props.popupId === 'popup' && props.isPopupOpen && <Popup />}
+        {/* <Loader /> */}
         <Switch>
           {/* <Route
       exact

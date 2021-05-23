@@ -1,4 +1,9 @@
-import { CLOSE_POPUP, OPEN_POPUP } from '../actions/actionTypes';
+import {
+  CLOSE_POPUP,
+  OPEN_POPUP,
+  SET_LOADER,
+  UNSET_LOADER,
+} from '../actions/actionTypes';
 
 const initialStateUi = {
   popup: {
@@ -6,6 +11,7 @@ const initialStateUi = {
     isOpen: false,
     data: null,
   },
+  isLoading: false,
 };
 
 const ui = (state = initialStateUi, action) => {
@@ -28,6 +34,18 @@ const ui = (state = initialStateUi, action) => {
           isOpen: false,
           data: null,
         },
+      };
+
+    case SET_LOADER:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case UNSET_LOADER:
+      return {
+        ...state,
+        isLoading: false,
       };
 
     default:

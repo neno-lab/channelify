@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfigUi = {
   key: 'ui',
   storage,
-  blacklist: ['popup'],
+  blacklist: ['popup', 'isLoading'],
 };
 
 const persistConfigUser = {
