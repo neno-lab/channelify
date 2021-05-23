@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// const router = require('./router');
+const router = require('./router');
 // const webpush = require('web-push');
 
 // middlewares
@@ -15,7 +15,7 @@ app.use(cors());
 //   process.env.PRIVATE_VAPID_KEY
 // );
 
-// app.use('/api/v1', router);
+app.use('/api/v1', router);
 
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
