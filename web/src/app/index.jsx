@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import './style.scss';
 import HeaderPopup from '../components/HeaderPopup';
 import Popup from '../components/Popup';
-import Loader from '../Loader';
+import Loader from '../components/Loader';
 
 const App = (props) => {
   return (
