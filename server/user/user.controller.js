@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwtGenerator = require('../utils/jwtGenerator');
 const db = require('../db');
+const webpush = require('web-push');
 
 async function register(req, res) {
   const { first_name, last_name, email, password } = req.body;
@@ -139,10 +140,29 @@ async function updateNotification(req, res) {
   });
 }
 
+async function subscribe(req, res) {
+  const subscription = req.body;
+
+  res.status(200).json({
+    success: true,
+    message: 'Sub success',
+  });
+
+  const payload = JSON.stringify({ title: 'Push Test' });
+
+  console.log('MRALE: ', subscription);
+  console.log('SAIBABA: ', payload);
+
+  webpush
+    .sendNotification(subscription, payload)
+    .catch((err) => console.error(err));
+}
+
 module.exports = {
   register,
   login,
   //   getAllUsersExceptOne,
   updateLocation,
   updateNotification,
+  subscribe,
 };

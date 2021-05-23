@@ -22,5 +22,16 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        send().catch((err) => console.error(err));
+      }
+
+      async function send() {
+        navigator.serviceWorker.register('./sw.js').then((swreg) => {
+          console.log('SW Registered: ', swreg);
+        });
+      }
+    </script>
   </body>
 </html>
