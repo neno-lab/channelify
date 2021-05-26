@@ -19,6 +19,7 @@ const RegisterForm = (props) => {
 
   const onSubmit = (data) => {
     let reg;
+    let userId;
 
     user
       .post('/register', {
@@ -28,11 +29,13 @@ const RegisterForm = (props) => {
         password: data.password,
       })
       .then((res) => {
-        console.log('Response Register: ', res);
+        // console.log('Response Register: ', res);
         return res;
       })
       .then(({ data }) => {
+        // console.log(data);
         if (data.success) {
+          userId = data.user.user_id;
           props.dispatch(saveUserData(data));
           props.dispatch(saveToken(data));
 
@@ -44,7 +47,6 @@ const RegisterForm = (props) => {
         return swreg.pushManager.getSubscription();
       })
       .then((sub) => {
-        console.log('SUB: ', sub);
         if (sub === null) {
           const publicKey =
             'BPSZ2moX1QMc_OInpcyCvu-hL7vvAHtLpRvqHQ5_vICwQ4EYw7i-2z72dOdb17Q7-ju1MYfGrazS7XFHj9ataBs';
@@ -55,15 +57,16 @@ const RegisterForm = (props) => {
         }
       })
       .then((newSub) => {
-        console.log('NEW SUB: ', newSub);
         if (newSub !== undefined) {
-          return user.post('/save-subscription', {
+          return user.put(`/save-subscription/${userId}`, {
             newSub,
           });
         }
       })
-      .then((res) => {
-        console.log('Last response: ', res);
+      .then(({ data }) => {
+        if (data.success) {
+          props.history.push('/tv-channels');
+        }
       })
       .catch((err) => console.error(err));
   };
@@ -72,7 +75,6 @@ const RegisterForm = (props) => {
   //   console.log(data);
   // };
 
-  console.log(errors);
   return (
     <form className='register-form' onSubmit={handleSubmit(onSubmit)}>
       <h1 className='register-form-title'>Sign Up</h1>
@@ -148,11 +150,4 @@ const RegisterForm = (props) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    userData: state.user.userData,
-    token: state.user.token,
-  };
-};
-
-export default connect(mapStateToProps)(withRouter(RegisterForm));
+export default connect()(withRouter(RegisterForm));

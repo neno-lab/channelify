@@ -147,10 +147,9 @@ async function updateNotification(req, res) {
 }
 
 async function saveSubscription(req, res) {
-  const { subscription } = req.body;
+  const { newSub } = req.body;
 
-  console.log('MRALE MRALE: ', subscription);
-  console.log(req.body);
+  console.log('New Sub: ', newSub);
 
   // const payload = JSON.stringify({ title: 'Push Test' });
 
@@ -160,6 +159,18 @@ async function saveSubscription(req, res) {
   // webpush
   //   .sendNotification(subscription, payload)
   //   .catch((err) => console.error(err));
+
+  const result_subscription = await db.query(
+    'UPDATE users SET user_endpoint = $1, user_auth = $2, user_p256dh = $3 WHERE user_id = $4 RETURNING *',
+    [newSub.endpoint, newSub.keys.auth, newSub.keys.p256dh, req.params.id]
+  );
+
+  if (result_subscription.rows.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: 'That user does not exist.',
+    });
+  }
 
   res.status(200).json({
     success: true,

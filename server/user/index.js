@@ -6,7 +6,7 @@ const authorization = require('../middleware/authorization');
 router
   .post('/register', ctrl.register)
   .post('/login', ctrl.login)
-  .post('/save-subscription', ctrl.saveSubscription)
+  .put('/save-subscription/:id', ctrl.saveSubscription)
   .use(authorization)
   //   .get('/:id', ctrl.getAllUsersExceptOne)
   .put('/location/:id', ctrl.updateLocation)
