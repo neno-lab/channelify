@@ -150,9 +150,29 @@ async function sendNotification(req, res) {
   // // const data = values.rows[0];
   // const subscriptionData=values.rows;
   // console.log('VALUES: ', values.rows);
-  // res.status(200).json({
-  //   success: true,
-  // });
+
+  const test = await db.query(
+    'SELECT user_endpoint, user_auth, user_p256dh FROM users WHERE user_id = $1',
+    [req.params.id]
+  );
+
+  let subscription = {
+    endpoint: test.rows[0].user_endpoint,
+    keys: { auth: test.rows[0].user_auth, p256dh: test.rows[0].user_p256dh },
+  };
+
+  const payload = JSON.stringify({
+    title: 'IDE GAAASSS!!!',
+    content: 'MRALE CONTENT!!!',
+  });
+
+  webpush
+    .sendNotification(subscription, payload)
+    .catch((err) => console.error(err));
+
+  res.status(200).json({
+    success: true,
+  });
 }
 
 module.exports = {

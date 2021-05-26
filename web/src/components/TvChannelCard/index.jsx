@@ -17,7 +17,13 @@ const TvChannelCard = (props) => {
   //   }
   // };
 
-  const handleOnClick = (index) => {
+  const handleOnClick = (index, tvChannelId) => {
+    let config = {
+      headers: {
+        Authorization: `Bearer ${props.token}`,
+      },
+    };
+
     if (props.isActive[index] === 0) {
       Object.keys(props.isActive).forEach((i) => {
         props.isActive[i] = 2;
@@ -25,36 +31,57 @@ const TvChannelCard = (props) => {
 
       props.setActive({ ...props.isActive, [index]: 1 });
 
-      //   let params={
-      //     tv_channel:
-      //   }
-
-      //   let config = {
-      //     headers: {
-      //       Authorization: `Bearer ${props.token}`,
-      //     },
-      //   };
-
-      //  tv.put(`/${props.userId}`, )
-
-      // user
-      //   .get(`/send-notification/${props.userId}`, config)
-      //   .then((res) => {
-      //     console.log(res);
-      //     return res;
-      //   })
-      //   .then((data) => {
-      //     console.log('Get Data: ', data);
-      //   })
-      //   .catch((err) => {
-      //     console.error('Server Error: ', err);
-      //   });
+      tv.put(
+        `/${props.userId}`,
+        {
+          tv_channel: tvChannelId,
+        },
+        config
+      )
+        .then((res) => {
+          return res;
+        })
+        .then(({ data }) => {
+          if (data.success) {
+            return user.get(`/send-notification/${props.userId}`, config);
+          }
+        })
+        .then((res) => {
+          return res;
+        })
+        .then(({ data }) => {
+          if (data.success) {
+            return;
+          }
+        })
+        .catch((err) => {
+          console.error('Server Error: ', err);
+        });
     } else if (props.isActive[index] === 1) {
       Object.keys(props.isActive).forEach((i) => {
         props.isActive[i] = 0;
       });
 
       props.setActive({ ...props.isActive });
+
+      tv.put(
+        `/${props.userId}`,
+        {
+          tv_channel: null,
+        },
+        config
+      )
+        .then((res) => {
+          return res;
+        })
+        .then(({ data }) => {
+          if (data.success) {
+            return;
+          }
+        })
+        .catch((err) => {
+          console.error('Server Error: ', err);
+        });
     }
   };
 
@@ -82,7 +109,7 @@ const TvChannelCard = (props) => {
       </p>
       <button
         className={`${props.isActive[props.index] === 1 ? 'active' : ''}`}
-        onClick={() => handleOnClick(props.index)}
+        onClick={() => handleOnClick(props.index, props.tvChannelId)}
       >
         {props.isActive[props.index] === 1 ? 'Stop Watching' : 'Watch'}
       </button>
