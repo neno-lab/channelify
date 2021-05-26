@@ -3,12 +3,18 @@ import { Logo } from '../../assets/icons';
 import { connect } from 'react-redux';
 import './style.scss';
 import { openPopup } from '../../redux/actions/ui';
+import { withRouter } from 'react-router-dom';
 
 const Header = (props) => {
   return (
     <header>
       <div className='header-container'>
-        <Logo className='logo' />
+        <Logo
+          className='logo'
+          onClick={() => {
+            props.history.push('/tv-channels');
+          }}
+        />
         <i
           className='fas fa-bars'
           onClick={() => props.dispatch(openPopup('header-popup'))}
@@ -18,4 +24,4 @@ const Header = (props) => {
   );
 };
 
-export default connect()(Header);
+export default connect()(withRouter(Header));

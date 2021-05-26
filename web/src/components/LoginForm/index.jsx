@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 import user from '../../api/user';
 import { saveToken, saveUserData } from '../../redux/actions/user';
+import { setLoader, unsetLoader } from '../../redux/actions/ui';
 
 const LoginForm = (props) => {
   const {
@@ -29,7 +30,11 @@ const LoginForm = (props) => {
         if (data.success) {
           props.dispatch(saveUserData(data));
           props.dispatch(saveToken(data));
-          props.history.push('/tv-channels');
+          props.dispatch(setLoader());
+          setTimeout(() => {
+            props.dispatch(unsetLoader());
+            props.history.push('/tv-channels');
+          }, 1000);
         }
       })
       .catch((err) => {

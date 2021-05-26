@@ -15,55 +15,24 @@ import './style.scss';
 import HeaderPopup from '../components/HeaderPopup';
 import Popup from '../components/Popup';
 // import { urlBase64ToUint8Array } from '../helpers';
-// import Loader from '../components/Loader';
+import Loader from '../components/Loader';
 
 const App = (props) => {
-  if ('Notification' in window) {
-    Notification.requestPermission((result) => {
-      if (result !== 'granted') {
-        console.log('User Denied Notifications!');
-      } else {
-        console.log('User Granted Notifications! :)');
-      }
-    });
-  }
-
-  // if ('serviceWorker' in navigator) {
-  //   let reg;
-
-  //   navigator.serviceWorker.ready
-  //     .then((swreg) => {
-  //       reg = swreg;
-  //       return swreg.pushManager.getSubscription();
-  //     })
-  //     .then((sub) => {
-  //       if (sub === null) {
-  //         const publicKey =
-  //           'BPSZ2moX1QMc_OInpcyCvu-hL7vvAHtLpRvqHQ5_vICwQ4EYw7i-2z72dOdb17Q7-ju1MYfGrazS7XFHj9ataBs';
-  //         return reg.pushManager.subscribe({
-  //           userVisibleOnly: true,
-  //           applicationServerKey: urlBase64ToUint8Array(publicKey),
-  //         });
-  //       } else {
-  //         console.log('Subscription already exists.');
-  //       }
-  //     })
-  //     .then((newSub) => {
-  //       if (newSub !== undefined) {
-  //         return fetch('http://localhost:5000/api/v1/users/subscribe', {
-  //           method: 'POST',
-  //           headers: { 'content-type': 'application/json' },
-  //           body: JSON.stringify(newSub),
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log('Server Error: ', err.message);
-  //     });
-  // }
+  React.useEffect(() => {
+    if ('Notification' in window) {
+      Notification.requestPermission((result) => {
+        if (result !== 'granted') {
+          console.log('User Denied Notifications!');
+        } else {
+          console.log('User Granted Notifications! :)');
+        }
+      });
+    }
+  }, []);
 
   return (
     <>
+      {props.isLoading && <Loader />}
       <Router>
         {props.popupId === 'header-popup' && props.isPopupOpen && (
           <HeaderPopup />
@@ -132,6 +101,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isPopupOpen: state.ui.popup.isOpen,
     popupId: state.ui.popup.id,
+    isLoading: state.ui.isLoading,
   };
 };
 
