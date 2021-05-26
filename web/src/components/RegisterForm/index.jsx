@@ -68,7 +68,7 @@ const RegisterForm = (props) => {
           props.history.push('/tv-channels');
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error('Server Error: ', err));
   };
 
   // const onSubmit = (data) => {

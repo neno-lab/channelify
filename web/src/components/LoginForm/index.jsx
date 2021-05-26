@@ -1,16 +1,12 @@
 import React from 'react';
 import InputField from '../InputField';
 import { useForm } from 'react-hook-form';
-// import { withRouter } from 'react-router-dom';
-// import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './style.scss';
-// import {
-//   saveToken,
-//   saveUserData,
-//   saveUsersInfo,
-// } from '../../../redux/actions/user';
-// import { getAllUsersExceptOne, login } from '../../../helpers';
+import user from '../../api/user';
+import { saveToken, saveUserData } from '../../redux/actions/user';
 
 const LoginForm = (props) => {
   const {
@@ -20,34 +16,30 @@ const LoginForm = (props) => {
     formState: { errors },
   } = useForm();
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     login(data.email, data.password).then((loginData) => {
-  //       if (loginData.success) {
-  //         props.dispatch(saveToken(loginData));
-  //         props.dispatch(saveUserData(loginData));
-
-  //         getAllUsersExceptOne(loginData).then((allUsersExceptOne) => {
-  //           if (allUsersExceptOne.success) {
-  //             props.dispatch(saveUsersInfo(allUsersExceptOne));
-
-  //             if (loginData.user.is_admin) {
-  //               props.history.push('/admin');
-  //             } else {
-  //               props.history.push('/user');
-  //             }
-  //           }
-  //         });
-  //       }
-  //     });
-  //   } catch (err) {
-  //     throw err.message;
-  //   }
-  // };
-
   const onSubmit = (data) => {
-    console.log(data);
+    user
+      .post('/login', {
+        email: data.email,
+        password: data.password,
+      })
+      .then((res) => {
+        return res;
+      })
+      .then(({ data }) => {
+        if (data.success) {
+          props.dispatch(saveUserData(data));
+          props.dispatch(saveToken(data));
+          props.history.push('/tv-channels');
+        }
+      })
+      .catch((err) => {
+        console.error('Server Error: ', err);
+      });
   };
+
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
 
   return (
     <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
@@ -97,4 +89,4 @@ const LoginForm = (props) => {
   );
 };
 
-export default LoginForm;
+export default connect()(withRouter(LoginForm));

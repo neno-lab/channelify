@@ -149,8 +149,6 @@ async function updateNotification(req, res) {
 async function saveSubscription(req, res) {
   const { newSub } = req.body;
 
-  console.log('New Sub: ', newSub);
-
   // const payload = JSON.stringify({ title: 'Push Test' });
 
   // console.log('MRALE: ', subscription);
