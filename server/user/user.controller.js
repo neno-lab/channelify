@@ -37,9 +37,12 @@ async function register(req, res) {
       user_id: data.user_id,
       first_name: data.user_first_name,
       last_name: data.user_last_name,
-      location: data.user_location,
       email: data.user_email,
       password: data.user_password,
+      location: data.user_location,
+      endpoint: data.user_endpoint,
+      auth: data.user_auth,
+      p256dh: data.user_p256dh,
       tv_channel_id_fk: data.tv_channel_id_fk,
     },
     token,
@@ -77,9 +80,12 @@ async function login(req, res) {
       user_id: data.user_id,
       first_name: data.user_first_name,
       last_name: data.user_last_name,
-      location: data.user_location,
       email: data.user_email,
       password: data.user_password,
+      location: data.user_location,
+      endpoint: data.user_endpoint,
+      auth: data.user_auth,
+      p256dh: data.user_p256dh,
       tv_channel_id_fk: data.tv_channel_id_fk,
     },
     token,
@@ -140,22 +146,25 @@ async function updateNotification(req, res) {
   });
 }
 
-async function subscribe(req, res) {
-  const subscription = req.body;
+async function saveSubscription(req, res) {
+  const { subscription } = req.body;
+
+  console.log('MRALE MRALE: ', subscription);
+  console.log(req.body);
+
+  // const payload = JSON.stringify({ title: 'Push Test' });
+
+  // console.log('MRALE: ', subscription);
+  // console.log('SAIBABA: ', payload);
+
+  // webpush
+  //   .sendNotification(subscription, payload)
+  //   .catch((err) => console.error(err));
 
   res.status(200).json({
     success: true,
-    message: 'Sub success',
+    message: 'Subscription saved',
   });
-
-  const payload = JSON.stringify({ title: 'Push Test' });
-
-  console.log('MRALE: ', subscription);
-  console.log('SAIBABA: ', payload);
-
-  webpush
-    .sendNotification(subscription, payload)
-    .catch((err) => console.error(err));
 }
 
 module.exports = {
@@ -164,5 +173,5 @@ module.exports = {
   //   getAllUsersExceptOne,
   updateLocation,
   updateNotification,
-  subscribe,
+  saveSubscription,
 };

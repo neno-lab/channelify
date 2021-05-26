@@ -6,7 +6,10 @@ const InputField = (props) => {
   const [hasErrors, setErrors] = React.useState(false);
 
   React.useEffect(() => {
-    if (props.errors?.type === 'required') {
+    if (
+      props.errors?.type === 'required' ||
+      props.errors?.type === 'minLength'
+    ) {
       setErrors(true);
       setActive(false);
     } else {

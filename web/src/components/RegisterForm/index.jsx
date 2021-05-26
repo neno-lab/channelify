@@ -3,14 +3,11 @@ import InputField from '../InputField';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import './style.scss';
-// import { withRouter } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { registration, getAllUsersExceptOne } from '../../../helpers';
-// import {
-//   saveToken,
-//   saveUserData,
-//   saveUsersInfo,
-// } from '../../../redux/actions/user';
+import user from '../../api/user';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { saveToken, saveUserData } from '../../redux/actions/user';
+import { urlBase64ToUint8Array } from '../../helpers';
 
 const RegisterForm = (props) => {
   const {
@@ -20,39 +17,62 @@ const RegisterForm = (props) => {
     formState: { errors },
   } = useForm();
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     registration(
-  //       data.first_name,
-  //       data.last_name,
-  //       data.email,
-  //       data.password,
-  //       false
-  //     ).then((registerData) => {
-  //       if (registerData.success) {
-  //         props.dispatch(saveToken(registerData));
-  //         props.dispatch(saveUserData(registerData));
-
-  //         getAllUsersExceptOne(registerData).then((allUsersExceptOne) => {
-  //           if (allUsersExceptOne.success) {
-  //             props.dispatch(saveUsersInfo(allUsersExceptOne));
-
-  //             if (!registerData.user.is_admin) {
-  //               props.history.push('/');
-  //             }
-  //           }
-  //         });
-  //       }
-  //     });
-  //   } catch (err) {
-  //     throw err.message;
-  //   }
-  // };
-
   const onSubmit = (data) => {
-    console.log(data);
+    let reg;
+
+    user
+      .post('/register', {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        password: data.password,
+      })
+      .then((res) => {
+        console.log('Response Register: ', res);
+        return res;
+      })
+      .then(({ data }) => {
+        if (data.success) {
+          props.dispatch(saveUserData(data));
+          props.dispatch(saveToken(data));
+
+          return navigator.serviceWorker.ready;
+        }
+      })
+      .then((swreg) => {
+        reg = swreg;
+        return swreg.pushManager.getSubscription();
+      })
+      .then((sub) => {
+        console.log('SUB: ', sub);
+        if (sub === null) {
+          const publicKey =
+            'BPSZ2moX1QMc_OInpcyCvu-hL7vvAHtLpRvqHQ5_vICwQ4EYw7i-2z72dOdb17Q7-ju1MYfGrazS7XFHj9ataBs';
+          return reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(publicKey),
+          });
+        }
+      })
+      .then((newSub) => {
+        console.log('NEW SUB: ', newSub);
+        if (newSub !== undefined) {
+          return user.post('/save-subscription', {
+            newSub,
+          });
+        }
+      })
+      .then((res) => {
+        console.log('Last response: ', res);
+      })
+      .catch((err) => console.error(err));
   };
 
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
+
+  console.log(errors);
   return (
     <form className='register-form' onSubmit={handleSubmit(onSubmit)}>
       <h1 className='register-form-title'>Sign Up</h1>
@@ -128,4 +148,11 @@ const RegisterForm = (props) => {
   );
 };
 
-export default RegisterForm;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    userData: state.user.userData,
+    token: state.user.token,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(RegisterForm));

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import persistReducer from 'redux-persist/es/persistReducer';
 // import { tv } from './tv';
-// import { user } from './user';
+import { user } from './user';
 import { ui } from './ui';
 import storage from 'redux-persist/lib/storage';
 
@@ -23,7 +23,7 @@ const persistConfigTv = {
 
 const rootReducer = combineReducers({
   ui: persistReducer(persistConfigUi, ui),
-  //   user: persistReducer(persistConfigUser, user),
+  user: persistReducer(persistConfigUser, user),
   //   tv: persistReducer(persistConfigTv, tv),
 });
 
