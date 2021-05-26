@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import './style.scss';
 import { closePopup } from '../../redux/actions/ui';
+import user from '../../api/user';
 // import tv from '../../../api/tv';
 // import user from '../../../api/user';
 // import { saveTvChannelsData } from '../../../redux/actions/tv';
@@ -18,67 +19,36 @@ const Popup = (props) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (inputData) => {
-    console.log(inputData);
-    // try {
-    //   const config = {
-    //     headers: {
-    //       Authorization: `Bearer ${props.token}`,
-    //     },
-    //   };
+  const onSubmit = (inputData) => {
+    let params = {
+      location: inputData.popup,
+    };
 
-    //   if (props.isAdmin) {
-    //     const params = {
-    //       tv_channel: inputData.popup.toUpperCase(),
-    //     };
-    //     const responseTvChannel = await tv.post('/', params, config);
+    let config = {
+      headers: {
+        Authorization: `Bearer ${props.token}`,
+      },
+    };
 
-    //     if (responseTvChannel.data.success) {
-    //       const responseAllTvChannels = await tv.get('/', config);
-    //       if (responseAllTvChannels.data.success) {
-    //         props.dispatch(saveTvChannelsData(responseAllTvChannels.data));
-    //         document
-    //           .getElementsByClassName('popup-filter-holder')[0]
-    //           .classList.add('fadeOut');
-    //         setTimeout(() => {
-    //           props.dispatch(props.dispatch(closePopup()));
-    //         }, 250);
-    //       }
-    //     }
-    //   } else {
-    //     const params = {
-    //       location: inputData.popup,
-    //     };
-    //     const responseLocation = await user.put(
-    //       `/location/${props.userId}`,
-    //       params,
-    //       config
-    //     );
-
-    //     if (responseLocation.data.success) {
-    //       const responseTvChannel = await tv.put(
-    //         `/${props.userId}`,
-    //         {
-    //           tv_channel: props.tvChannelId,
-    //         },
-    //         config
-    //       );
-
-    //       if (responseTvChannel.data.success) {
-    //         // const responseAllUsers
-
-    //         document
-    //           .getElementsByClassName('popup-filter-holder')[0]
-    //           .classList.add('fadeOut');
-    //         setTimeout(() => {
-    //           props.dispatch(closePopup());
-    //         }, 250);
-    //       }
-    //     }
-    //   }
-    // } catch (err) {
-    //   throw err.message;
-    // }
+    user
+      .put(`/location/${props.userId}`, params, config)
+      .then((res) => {
+        return res;
+      })
+      .then(({ data }) => {
+        if (data.success) {
+          // popupRef.current.classList.add('fadeOut'); // why this not working?
+          document
+            .getElementsByClassName('popup-holder')[0]
+            .classList.add('fadeOut');
+          setTimeout(() => {
+            props.dispatch(closePopup());
+          }, 250);
+        }
+      })
+      .catch((err) => {
+        console.error('Server Error: ', err);
+      });
   };
 
   return (
@@ -123,8 +93,8 @@ const Popup = (props) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     // isAdmin: state.user.userData.isAdmin,
-    // token: state.user.token,
-    // userId: state.user.userData.id,
+    token: state.user.token,
+    userId: state.user.userData.id,
     // tvChannelId: state.tv.tvChannelId,
     popupDataTitle: state.ui.popup.data?.title,
     popupDataLabel: state.ui.popup.data?.label,

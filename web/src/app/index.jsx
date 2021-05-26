@@ -14,10 +14,20 @@ import { connect } from 'react-redux';
 import './style.scss';
 import HeaderPopup from '../components/HeaderPopup';
 import Popup from '../components/Popup';
-import { urlBase64ToUint8Array } from '../helpers';
+// import { urlBase64ToUint8Array } from '../helpers';
 // import Loader from '../components/Loader';
 
 const App = (props) => {
+  if ('Notification' in window) {
+    Notification.requestPermission((result) => {
+      if (result !== 'granted') {
+        console.log('User Denied Notifications!');
+      } else {
+        console.log('User Granted Notifications! :)');
+      }
+    });
+  }
+
   // if ('serviceWorker' in navigator) {
   //   let reg;
 

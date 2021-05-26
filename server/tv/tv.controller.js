@@ -1,15 +1,15 @@
 const db = require('../db');
 
-// async function getAllTvChannels(req, res) {
-//   const allTvChannels = await db.query(
-//     'SELECT * FROM tv_channels LEFT JOIN (SELECT tv_channel_id_fk, COUNT(tv_channel_id_fk) AS amount FROM users GROUP BY tv_channel_id_fk) users ON tv_channels.tv_channel_id = users.tv_channel_id_fk;'
-//   );
+async function getAllTvChannels(req, res) {
+  const allTvChannels = await db.query(
+    'SELECT * FROM tv_channels LEFT JOIN (SELECT tv_channel_id_fk, COUNT(tv_channel_id_fk) AS amount FROM users GROUP BY tv_channel_id_fk) users ON tv_channels.tv_channel_id = users.tv_channel_id_fk;'
+  );
 
-//   return res.status(200).json({
-//     success: true,
-//     tv_channels: allTvChannels.rows,
-//   });
-// }
+  return res.status(200).json({
+    success: true,
+    tv_channels: allTvChannels.rows,
+  });
+}
 
 // async function createTvChannel(req, res) {
 //   const { user_is_admin } = req.user;
@@ -77,7 +77,7 @@ async function updateTvChannel(req, res) {
 }
 
 module.exports = {
-  //   getAllTvChannels,
+  getAllTvChannels,
   //   createTvChannel,
   //   deleteTvChannel,
   updateTvChannel,

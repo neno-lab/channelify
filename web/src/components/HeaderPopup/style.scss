@@ -2,6 +2,7 @@
 @import '../../styles/anims';
 
 .header-popup {
+  z-index: 99;
   background-color: $purple;
   position: fixed;
   top: 0;

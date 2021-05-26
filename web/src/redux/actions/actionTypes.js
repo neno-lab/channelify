@@ -7,3 +7,6 @@ export const UNSET_LOADER = 'UNSET_LOADER';
 // USER actions
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const SAVE_USER_DATA = 'SAVE_USER_DATA';
+
+// TV actions
+export const SAVE_TV_CHANNELS_DATA = 'SAVE_TV_CHANNELS_DATA';

@@ -5,10 +5,10 @@ const authorization = require('../middleware/authorization');
 
 router
   .use(authorization)
-  //   .get('/tv-channels', ctrl.getAllTvChannels)
-  //   .post('/tv-channels', ctrl.createTvChannel)
-  //   .delete('/tv-channels/:id', ctrl.deleteTvChannel)
+  .get('/tv-channels', ctrl.getAllTvChannels)
   .put('/tv-channels/:id', ctrl.updateTvChannel);
+//   .post('/tv-channels', ctrl.createTvChannel)
+//   .delete('/tv-channels/:id', ctrl.deleteTvChannel)
 
 module.exports = {
   path: '/tv',

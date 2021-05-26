@@ -25,7 +25,6 @@ const Link = (props) => {
         break;
 
       case 2:
-        console.log('nesto');
         props.popupRef.current.classList.add('fadeOut');
         setTimeout(() => {
           props.dispatch(closePopup());

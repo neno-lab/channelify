@@ -8,9 +8,8 @@ router
   .post('/login', ctrl.login)
   .put('/save-subscription/:id', ctrl.saveSubscription)
   .use(authorization)
-  //   .get('/:id', ctrl.getAllUsersExceptOne)
-  .put('/location/:id', ctrl.updateLocation)
-  .put('/notification/:id', ctrl.updateNotification);
+  .get('/send-notification/:id', ctrl.sendNotification)
+  .put('/location/:id', ctrl.updateLocation);
 
 module.exports = {
   path: '/users',

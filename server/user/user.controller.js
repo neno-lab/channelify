@@ -92,18 +92,6 @@ async function login(req, res) {
   });
 }
 
-// async function getAllUsersExceptOne(req, res) {
-//   const allUsers = await db.query(
-//     'SELECT user_id, user_first_name, user_last_name, user_location, tv_channel_id_fk FROM users WHERE user_id NOT IN ($1)',
-//     [req.params.id]
-//   );
-
-//   return res.status(200).json({
-//     success: true,
-//     users: allUsers.rows,
-//   });
-// }
-
 async function updateLocation(req, res) {
   const { location } = req.body;
 
@@ -113,27 +101,6 @@ async function updateLocation(req, res) {
   );
 
   if (result_location.rows.length === 0) {
-    return res.status(404).json({
-      success: false,
-      message: 'That user does not exist.',
-    });
-  }
-
-  return res.status(200).json({
-    success: true,
-    message: 'User location updated.',
-  });
-}
-
-async function updateNotification(req, res) {
-  const { notification } = req.body;
-
-  const result_notification = await db.query(
-    'UPDATE users SET user_notification_watching = $1 WHERE user_id = $2 RETURNING *',
-    [notification, req.params.id]
-  );
-
-  if (result_notification.rows.length === 0) {
     return res.status(404).json({
       success: false,
       message: 'That user does not exist.',
@@ -176,11 +143,22 @@ async function saveSubscription(req, res) {
   });
 }
 
+async function sendNotification(req, res) {
+  // const values = await db.query(
+  //   'SELECT user_id, user_location, tv_channel_id_fk, user_endpoint, user_auth, user_p256dh FROM users WHERE NOT user_id = $1', req.params.id
+  // );
+  // // const data = values.rows[0];
+  // const subscriptionData=values.rows;
+  // console.log('VALUES: ', values.rows);
+  // res.status(200).json({
+  //   success: true,
+  // });
+}
+
 module.exports = {
   register,
   login,
-  //   getAllUsersExceptOne,
   updateLocation,
-  updateNotification,
   saveSubscription,
+  sendNotification,
 };

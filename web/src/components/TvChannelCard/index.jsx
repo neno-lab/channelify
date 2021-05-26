@@ -1,7 +1,22 @@
 import React from 'react';
+import user from '../../api/user';
+import { connect } from 'react-redux';
 import './style.scss';
+import tv from '../../api/tv';
 
 const TvChannelCard = (props) => {
+  // const displayConfirmNotification = () => {
+  //   if ('serviceWorker' in navigator) {
+  //     let options = {
+  //       body: 'You successfully subscribed to our Notification service!',
+  //     };
+
+  //     navigator.serviceWorker.ready.then((swreg) => {
+  //       swreg.showNotification('Succefully subscribed!', options);
+  //     });
+  //   }
+  // };
+
   const handleOnClick = (index) => {
     if (props.isActive[index] === 0) {
       Object.keys(props.isActive).forEach((i) => {
@@ -9,6 +24,31 @@ const TvChannelCard = (props) => {
       });
 
       props.setActive({ ...props.isActive, [index]: 1 });
+
+      //   let params={
+      //     tv_channel:
+      //   }
+
+      //   let config = {
+      //     headers: {
+      //       Authorization: `Bearer ${props.token}`,
+      //     },
+      //   };
+
+      //  tv.put(`/${props.userId}`, )
+
+      // user
+      //   .get(`/send-notification/${props.userId}`, config)
+      //   .then((res) => {
+      //     console.log(res);
+      //     return res;
+      //   })
+      //   .then((data) => {
+      //     console.log('Get Data: ', data);
+      //   })
+      //   .catch((err) => {
+      //     console.error('Server Error: ', err);
+      //   });
     } else if (props.isActive[index] === 1) {
       Object.keys(props.isActive).forEach((i) => {
         props.isActive[i] = 0;
@@ -28,7 +68,7 @@ const TvChannelCard = (props) => {
           : ''
       }`}
     >
-      <h2>Tv Channel Name</h2>
+      <h2>{props.tvChannelName}</h2>
       <p>
         Currently playing: <span>Titanic</span>
       </p>
@@ -50,4 +90,11 @@ const TvChannelCard = (props) => {
   );
 };
 
-export default TvChannelCard;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    userId: state.user.userData.id,
+    token: state.user.token,
+  };
+};
+
+export default connect(mapStateToProps)(TvChannelCard);
