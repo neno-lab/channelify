@@ -1,0 +1,67 @@
+@import '../../styles/colors';
+@import '../../styles/anims';
+
+.toast {
+  background-color: $purple;
+  width: 261px;
+  height: 49px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  animation-name: fromRightToLeft;
+  animation-duration: 1.2s;
+  right: -100%;
+  animation-fill-mode: forwards;
+  //   animation-delay: 0.25s;
+
+  &.success {
+    background-color: $success-green;
+  }
+
+  &.fail {
+    background-color: $danger-red;
+  }
+
+  &-icon {
+    position: absolute;
+    left: 15px;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: $white;
+  }
+
+  &-x {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-line-1 {
+    position: absolute;
+    left: 50%;
+    background-color: $white;
+    width: 2px;
+    height: 19px;
+    transform: rotate(45deg);
+  }
+
+  &-line-2 {
+    position: absolute;
+    left: 50%;
+    background-color: $white;
+    width: 2px;
+    height: 19px;
+    transform: rotate(-45deg);
+  }
+}

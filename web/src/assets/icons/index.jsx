@@ -38,3 +38,66 @@ c89 -28 159 -86 205 -170 31 -56 36 -75 39 -150 5 -118 -19 -183 -102 -266
     </svg>
   );
 };
+
+export const SuccessIcon = (props) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='19'
+      height='19'
+      viewBox='0 0 19 19'
+      className={props.className}
+    >
+      <g fill='none' fillRule='evenodd'>
+        <g>
+          <g>
+            <g>
+              <g transform='translate(-153 -821) translate(138 806) translate(15 13) translate(0 2)'>
+                <circle cx='9.5' cy='9.5' r='9.5' fill='#FFF' />
+                <path
+                  stroke='#1abd48'
+                  strokeWidth='1.5'
+                  d='M5 10.05L7.95 13 14.95 6'
+                />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+};
+
+export const FailIcon = (props) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='19'
+      height='19'
+      viewBox='0 0 19 19'
+      className={props.className}
+    >
+      <g fill='none' fillRule='evenodd'>
+        <g>
+          <g>
+            <g>
+              <g transform='translate(-153 -880) translate(138 865) translate(15 13) translate(0 2)'>
+                <circle cx='9.5' cy='9.5' r='9.5' fill='#FFF' />
+                <g fill='#f32013'>
+                  <path
+                    d='M5.335 0.243H6.335V11.243H5.335z'
+                    transform='rotate(45 3.132 12.046)'
+                  />
+                  <path
+                    d='M5.335 0.243L6.335 0.243 6.335 11.243 5.335 11.243z'
+                    transform='rotate(45 3.132 12.046) rotate(-90 5.835 5.743)'
+                  />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+};

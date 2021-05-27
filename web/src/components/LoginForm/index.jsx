@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 import user from '../../api/user';
 import { saveToken, saveUserData } from '../../redux/actions/user';
-import { setLoader, unsetLoader } from '../../redux/actions/ui';
+import { openToast, setLoader, unsetLoader } from '../../redux/actions/ui';
 
 const LoginForm = (props) => {
   const {
@@ -34,6 +34,7 @@ const LoginForm = (props) => {
           setTimeout(() => {
             props.dispatch(unsetLoader());
             props.history.push('/tv-channels');
+            props.dispatch(openToast('Logged In!', 'success'));
           }, 1000);
         }
       })

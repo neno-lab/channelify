@@ -1,6 +1,8 @@
 import {
   CLOSE_POPUP,
+  CLOSE_TOAST,
   OPEN_POPUP,
+  OPEN_TOAST,
   SET_LOADER,
   UNSET_LOADER,
 } from '../actions/actionTypes';
@@ -12,6 +14,11 @@ const initialStateUi = {
     data: null,
   },
   isLoading: false,
+  isToast: false,
+  toast: {
+    text: '',
+    className: '',
+  },
 };
 
 const ui = (state = initialStateUi, action) => {
@@ -46,6 +53,26 @@ const ui = (state = initialStateUi, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+
+    case OPEN_TOAST:
+      return {
+        ...state,
+        isToast: true,
+        toast: {
+          text: action.text,
+          className: action.className,
+        },
+      };
+
+    case CLOSE_TOAST:
+      return {
+        ...state,
+        isToast: false,
+        toast: {
+          text: '',
+          className: '',
+        },
       };
 
     default:
