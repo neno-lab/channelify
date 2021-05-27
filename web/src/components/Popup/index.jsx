@@ -3,7 +3,7 @@ import InputField from '../InputField';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import './style.scss';
-import { closePopup } from '../../redux/actions/ui';
+import { closePopup, openToast } from '../../redux/actions/ui';
 import user from '../../api/user';
 // import tv from '../../../api/tv';
 // import user from '../../../api/user';
@@ -43,6 +43,7 @@ const Popup = (props) => {
             .classList.add('fadeOut');
           setTimeout(() => {
             props.dispatch(closePopup());
+            props.dispatch(openToast('Location Added!', 'success'));
           }, 250);
         }
       })

@@ -21,11 +21,19 @@ const HeaderPopup = (props) => {
       <LinkForm popupRef={popupRef} />
       <span></span>
       <div className='header-popup-info'>
-        <h4>Username</h4>
-        <h4>Your Location ~ Terziceva 9</h4>
+        <h4>{props.firstName + ' ' + props.lastName}</h4>
+        <h4>Your Location ~ {props.location}</h4>
       </div>
     </div>
   );
 };
 
-export default connect()(HeaderPopup);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    firstName: state.user.userData.firstName,
+    lastName: state.user.userData.lastName,
+    location: state.user.userData.location,
+  };
+};
+
+export default connect(mapStateToProps)(HeaderPopup);

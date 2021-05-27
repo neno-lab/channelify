@@ -1,4 +1,9 @@
-import { SAVE_TOKEN, SAVE_USER_DATA } from '../actions/actionTypes';
+import {
+  LOGGING_IN,
+  LOGGING_OUT,
+  SAVE_TOKEN,
+  SAVE_USER_DATA,
+} from '../actions/actionTypes';
 
 const initialStateUser = {
   isAuth: false,
@@ -8,12 +13,13 @@ const initialStateUser = {
     id: null,
     firstName: null,
     lastName: null,
-    location: null,
     email: null,
+    location: null,
+    endpoint: null,
+    auth: null,
+    p256dh: null,
     watchingChannel: null,
-    isAdmin: null,
   },
-  usersInfo: null,
 };
 
 const user = (state = initialStateUser, action) => {
@@ -39,6 +45,18 @@ const user = (state = initialStateUser, action) => {
           p256dh: user_data.p256dh,
           watchingChannel: user_data.tv_channel_id_fk,
         },
+      };
+
+    case LOGGING_IN:
+      return {
+        ...state,
+        isLoggedIn: true,
+      };
+
+    case LOGGING_OUT:
+      return {
+        ...state,
+        isLoggedIn: false,
       };
 
     default:

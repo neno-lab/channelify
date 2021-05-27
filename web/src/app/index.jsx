@@ -16,6 +16,8 @@ import HeaderPopup from '../components/HeaderPopup';
 import Popup from '../components/Popup';
 // import { urlBase64ToUint8Array } from '../helpers';
 import Loader from '../components/Loader';
+import NotFound from '../views/404';
+import { loggingIn, loggingOut } from '../redux/actions/user';
 
 const App = (props) => {
   React.useEffect(() => {
@@ -29,6 +31,14 @@ const App = (props) => {
       });
     }
   }, []);
+
+  React.useEffect(() => {
+    if (props.token) {
+      props.dispatch(loggingIn());
+    } else {
+      props.dispatch(loggingOut());
+    }
+  }, [props.token]);
 
   return (
     <>
@@ -91,6 +101,8 @@ const App = (props) => {
               </>
             )}
           />
+
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </>
@@ -101,7 +113,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isPopupOpen: state.ui.popup.isOpen,
     popupId: state.ui.popup.id,
-    isLoading: state.ui.isLoading,
+    isLoading: state.user.isLoading,
+    token: state.user.token,
   };
 };
 

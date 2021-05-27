@@ -9,6 +9,8 @@ export const CLOSE_TOAST = 'CLOSE_TOAST';
 // USER actions
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const SAVE_USER_DATA = 'SAVE_USER_DATA';
+export const LOGGING_IN = 'LOGGING_IN';
+export const LOGGING_OUT = 'LOGGING_OUT';
 
 // TV actions
 export const SAVE_TV_CHANNELS_DATA = 'SAVE_TV_CHANNELS_DATA';
