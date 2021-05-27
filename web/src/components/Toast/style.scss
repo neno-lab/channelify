@@ -3,7 +3,7 @@
 
 .toast {
   background-color: $purple;
-  width: 261px;
+  min-width: 261px;
   height: 49px;
   border-radius: 10px;
   display: flex;
@@ -14,7 +14,7 @@
   animation-duration: 1.2s;
   right: -100%;
   animation-fill-mode: forwards;
-  //   animation-delay: 0.25s;
+  z-index: 100;
 
   &.success {
     background-color: $success-green;
@@ -22,6 +22,12 @@
 
   &.fail {
     background-color: $danger-red;
+  }
+
+  &.fadeOut {
+    animation-name: fadeOut;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
   }
 
   &-icon {

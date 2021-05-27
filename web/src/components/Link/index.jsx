@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { closePopup, openPopup } from '../../redux/actions/ui';
+import { closePopup, openPopup, openToast } from '../../redux/actions/ui';
 import { connect } from 'react-redux';
 import './style.scss';
 
@@ -25,16 +25,20 @@ const Link = (props) => {
         break;
 
       case 2:
-        props.popupRef.current.classList.add('fadeOut');
-        setTimeout(() => {
-          props.dispatch(closePopup());
-          props.dispatch(
-            openPopup('popup', {
-              title: 'Add Location',
-              label: 'Location',
-            })
-          );
-        }, 250);
+        if (!props.watchingChannel) {
+          props.dispatch(openToast('Cannot change!', 'fail'));
+        } else {
+          props.popupRef.current.classList.add('fadeOut');
+          setTimeout(() => {
+            props.dispatch(closePopup());
+            props.dispatch(
+              openPopup('popup', {
+                title: 'Add Location',
+                label: 'Location',
+              })
+            );
+          }, 250);
+        }
 
         break;
       case 3:
@@ -57,4 +61,10 @@ const Link = (props) => {
   );
 };
 
-export default connect()(withRouter(Link));
+const mapStateToProps = (state, ownProps) => {
+  return {
+    watchingChannel: state.user.userData.watchingChannel,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Link));
