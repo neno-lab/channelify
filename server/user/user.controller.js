@@ -113,6 +113,38 @@ async function updateLocation(req, res) {
   });
 }
 
+async function getSingleUserData(req, res) {
+  const result_single_user_data = await db.query(
+    'SELECT * FROM users WHERE user_id = $1',
+    [req.params.id]
+  );
+
+  if (result_single_user_data.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: 'That user does not exist.',
+    });
+  }
+
+  const data = result_single_user_data.rows[0];
+
+  res.status(200).json({
+    success: true,
+    user: {
+      user_id: data.user_id,
+      first_name: data.user_first_name,
+      last_name: data.user_last_name,
+      email: data.user_email,
+      password: data.user_password,
+      location: data.user_location,
+      endpoint: data.user_endpoint,
+      auth: data.user_auth,
+      p256dh: data.user_p256dh,
+      tv_channel_id_fk: data.tv_channel_id_fk,
+    },
+  });
+}
+
 async function saveSubscription(req, res) {
   const { newSub } = req.body;
 
@@ -181,4 +213,5 @@ module.exports = {
   updateLocation,
   saveSubscription,
   sendNotification,
+  getSingleUserData,
 };

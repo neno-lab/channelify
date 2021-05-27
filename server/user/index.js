@@ -9,7 +9,8 @@ router
   .put('/save-subscription/:id', ctrl.saveSubscription)
   .use(authorization)
   .get('/send-notification/:id', ctrl.sendNotification)
-  .put('/location/:id', ctrl.updateLocation);
+  .put('/location/:id', ctrl.updateLocation)
+  .get('/:id', ctrl.getSingleUserData);
 
 module.exports = {
   path: '/users',

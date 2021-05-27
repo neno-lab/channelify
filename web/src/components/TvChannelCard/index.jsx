@@ -3,6 +3,7 @@ import user from '../../api/user';
 import { connect } from 'react-redux';
 import './style.scss';
 import tv from '../../api/tv';
+import { saveUserData } from '../../redux/actions/user';
 
 const TvChannelCard = (props) => {
   // const displayConfirmNotification = () => {
@@ -42,6 +43,7 @@ const TvChannelCard = (props) => {
           return res;
         })
         .then(({ data }) => {
+          // console.log('data: ', data);
           if (data.success) {
             return user.get(`/send-notification/${props.userId}`, config);
           }
@@ -51,7 +53,15 @@ const TvChannelCard = (props) => {
         })
         .then(({ data }) => {
           if (data.success) {
-            return;
+            return user.get(`/${props.userId}`, config);
+          }
+        })
+        .then((res) => {
+          return res;
+        })
+        .then(({ data }) => {
+          if (data.success) {
+            props.dispatch(saveUserData(data));
           }
         })
         .catch((err) => {
@@ -76,7 +86,15 @@ const TvChannelCard = (props) => {
         })
         .then(({ data }) => {
           if (data.success) {
-            return;
+            return user.get(`/${props.userId}`, config);
+          }
+        })
+        .then((res) => {
+          return res;
+        })
+        .then(({ data }) => {
+          if (data.success) {
+            props.dispatch(saveUserData(data));
           }
         })
         .catch((err) => {

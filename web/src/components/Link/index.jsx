@@ -25,7 +25,7 @@ const Link = (props) => {
         break;
 
       case 2:
-        if (!props.watchingChannel) {
+        if (props.watchingChannel !== null) {
           props.dispatch(openToast('Cannot change!', 'fail'));
         } else {
           props.popupRef.current.classList.add('fadeOut');

@@ -37,7 +37,7 @@ const user = (state = initialStateUser, action) => {
           endpoint: user_data.endpoint,
           auth: user_data.auth,
           p256dh: user_data.p256dh,
-          watchingChannel: Number(user_data.tv_channel_id_fk),
+          watchingChannel: user_data.tv_channel_id_fk,
         },
       };
 
