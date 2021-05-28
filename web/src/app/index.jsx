@@ -3,18 +3,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Redirect,
+  Redirect,
 } from 'react-router-dom';
 import Login from '../views/Login';
 import Registration from '../views/Registration';
 import Statistics from '../views/Statistics';
 import TvChannels from '../views/TvChannels';
-import Header from '../components/Header';
 import { connect } from 'react-redux';
 import './style.scss';
 import HeaderPopup from '../components/HeaderPopup';
 import Popup from '../components/Popup';
-// import { urlBase64ToUint8Array } from '../helpers';
 import Loader from '../components/Loader';
 import NotFound from '../views/404';
 import { loggingIn, loggingOut } from '../redux/actions/user';
@@ -48,60 +46,32 @@ const App = (props) => {
           <HeaderPopup />
         )}
         {props.popupId === 'popup' && props.isPopupOpen && <Popup />}
-        {/* <Loader /> */}
+
         <Switch>
-          {/* <Route
-      exact
-      path='/'
-      render={() => {
-        return !props.isLoggedIn ? (
-          <Redirect to='/login' />
-        ) : props.isAdmin && props.isAuth && props.isLoggedIn ? (
-          <Redirect to='/admin' />
-        ) : !props.isAdmin && props.isAuth && props.isLoggedIn ? (
-          <Redirect to='/user' />
-        ) : null;
-      }}
-    />
-
-    <Route
-      exact
-      path='/register'
-      render={() => {
-        return !props.isLoggedIn ? (
-          <Redirect to='/register' />
-        ) : props.isAdmin && props.isAuth && props.isLoggedIn ? (
-          <Redirect to='/admin' />
-        ) : !props.isAdmin && props.isAuth && props.isLoggedIn ? (
-          <Redirect to='/user' />
-        ) : null;
-      }}
-    /> */}
-
           <Route exact path='/' component={Login} />
           <Route exact path='/register' component={Registration} />
-
-          <Route
-            exact
-            path='/statistics'
-            render={() => (
-              <>
-                <Header />
-                <Statistics />
-              </>
-            )}
-          />
           <Route
             exact
             path='/tv-channels'
-            render={() => (
-              <>
-                <Header />
-                <TvChannels />
-              </>
-            )}
+            render={() => {
+              if (props.isLoggedIn) {
+                return <TvChannels />;
+              } else {
+                return <Redirect to='/' />;
+              }
+            }}
           />
-
+          <Route
+            exact
+            path='/statistics'
+            render={() => {
+              if (props.isLoggedIn) {
+                return <Statistics />;
+              } else {
+                return <Redirect to='/' />;
+              }
+            }}
+          />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -113,8 +83,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isPopupOpen: state.ui.popup.isOpen,
     popupId: state.ui.popup.id,
-    isLoading: state.user.isLoading,
+    isLoading: state.ui.isLoading,
     token: state.user.token,
+    isLoggedIn: state.user.isLoggedIn,
   };
 };
 

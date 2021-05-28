@@ -41,7 +41,7 @@ const TvChannelForm = (props) => {
     });
 
     setActive(activeCards);
-  }, []);
+  }, [props.tvChannelsData]);
 
   return (
     <div className='tv-channel-form'>
