@@ -6,6 +6,8 @@ const webpush = require('web-push');
 async function register(req, res) {
   const { first_name, last_name, email, password } = req.body;
 
+  console.log('REGISTER');
+
   const user = await db.query('SELECT * FROM users WHERE user_email = $1', [
     email,
   ]);
@@ -51,6 +53,8 @@ async function register(req, res) {
 
 async function login(req, res) {
   const { email, password } = req.body;
+
+  console.log('LOGIN');
 
   const user = await db.query('SELECT * FROM users WHERE user_email = $1', [
     email,

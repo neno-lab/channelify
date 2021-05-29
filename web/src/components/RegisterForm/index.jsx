@@ -22,6 +22,7 @@ const RegisterForm = (props) => {
     let reg;
     let userId;
 
+    console.log('data: ', data);
     user
       .post('/register', {
         first_name: data.first_name,
@@ -30,11 +31,11 @@ const RegisterForm = (props) => {
         password: data.password,
       })
       .then((res) => {
-        // console.log('Response Register: ', res);
+        console.log('Response Register: ', res);
         return res;
       })
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         if (data.success) {
           userId = data.user.user_id;
           props.dispatch(saveUserData(data));
@@ -44,10 +45,12 @@ const RegisterForm = (props) => {
         }
       })
       .then((swreg) => {
+        console.log('swreg: ', swreg);
         reg = swreg;
         return swreg.pushManager.getSubscription();
       })
       .then((sub) => {
+        console.log('sub: ', sub);
         if (sub === null) {
           const publicKey =
             'BPSZ2moX1QMc_OInpcyCvu-hL7vvAHtLpRvqHQ5_vICwQ4EYw7i-2z72dOdb17Q7-ju1MYfGrazS7XFHj9ataBs';
@@ -58,6 +61,7 @@ const RegisterForm = (props) => {
         }
       })
       .then((newSub) => {
+        console.log('newSub: ', newSub);
         if (newSub !== undefined) {
           return user.put(`/save-subscription/${userId}`, {
             newSub,
@@ -65,6 +69,7 @@ const RegisterForm = (props) => {
         }
       })
       .then(({ data }) => {
+        console.log('DATA: ', data);
         if (data.success) {
           props.dispatch(setLoader());
           setTimeout(() => {
