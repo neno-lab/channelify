@@ -4,10 +4,16 @@ const app = express();
 const cors = require('cors');
 const router = require('./router');
 const webpush = require('web-push');
+const path = require('path');
+const PORT = process.env.PORT || 5000;
 
 // middlewares
 app.use(express.json());
 app.use(cors());
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'web/build')));
+}
 
 webpush.setVapidDetails(
   'mailto:test@test.com',
@@ -17,6 +23,6 @@ webpush.setVapidDetails(
 
 app.use('/api/v1', router);
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
