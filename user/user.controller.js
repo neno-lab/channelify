@@ -208,10 +208,21 @@ async function broadcast(req, res) {
   });
 
   if (test.rows.length !== 0) {
-    test.rows.forEach((data) => {
-      webpush.sendNotification(data, payload).catch((err) => {
-        console.error(err);
-      });
+    test.rows.forEach((subscription) => {
+      webpush
+        .sendNotification(
+          {
+            endpoint: subscription.user_endpoint,
+            keys: {
+              auth: subscription.user_auth,
+              p256dh: subscription.user_p256dh,
+            },
+          },
+          payload
+        )
+        .catch((err) => {
+          console.error(err);
+        });
     });
     res.status(200).json({
       success: true,
