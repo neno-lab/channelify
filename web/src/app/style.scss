@@ -11,3 +11,14 @@ body {
   min-height: 100vh;
   background-image: linear-gradient(to bottom, #eef5fe 0%, #ffffff 40%);
 }
+
+.body-scroll-lock {
+  -webkit-overflow-scrolling: unset !important;
+  overflow: hidden !important;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

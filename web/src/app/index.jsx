@@ -38,6 +38,14 @@ const App = (props) => {
     }
   }, [props.token]);
 
+  React.useEffect(() => {
+    if (props.isPopupOpen) {
+      document.body.classList.add('body-scroll-lock');
+    } else {
+      document.body.classList.remove('body-scroll-lock');
+    }
+  }, [props.isPopupOpen]);
+
   return (
     <>
       {props.isLoading && <Loader />}
