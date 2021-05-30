@@ -9,7 +9,7 @@ router
   .put('/save-subscription/:id', ctrl.saveSubscription)
   .use(authorization)
   .get('/send-notification/:id', ctrl.sendNotification)
-  .get('/broadcast/:id', ctrl.broadcast)
+  .get('/broadcast/:id/:location', ctrl.broadcast)
   .put('/location/:id', ctrl.updateLocation)
   .get('/:id', ctrl.getSingleUserData);
 

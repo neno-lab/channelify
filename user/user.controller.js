@@ -196,19 +196,33 @@ async function sendNotification(req, res) {
     .catch((err) => console.error(err));
 }
 
-async function broadcast() {
-  const { location } = req.body;
-
-  const values = await db.query(
-    'SELECT user_id, user_endpoint, user_auth, user_p256dh FROM users WHERE NOT user_id = $1 AND user_location = $2 AND tv_channel_id_fk = NULL',
-    [req.params.id, location]
+async function broadcast(req, res) {
+  const test = await db.query(
+    'SELECT user_endpoint, user_auth, user_p256dh FROM users WHERE NOT user_id = $1 AND user_location = $2 AND tv_channel_id_fk is null',
+    [req.params.id, req.params.location]
   );
 
-  console.log('saibaba: ', values.rows);
-
-  res.status(200).json({
-    success: true,
+  const payload = JSON.stringify({
+    title: 'test!!!',
+    content: 'test123',
   });
+
+  if (test.rows.length !== 0) {
+    test.rows.forEach((data) => {
+      webpush.sendNotification(data, payload).catch((err) => {
+        console.error(err);
+      });
+    });
+    res.status(200).json({
+      success: true,
+      message: 'Message sent.',
+    });
+  } else {
+    res.status(200).json({
+      success: true,
+      message: 'Message is not sent.',
+    });
+  }
 }
 
 module.exports = {
