@@ -5,9 +5,7 @@ import { useForm } from 'react-hook-form';
 import './style.scss';
 import { closePopup, openToast } from '../../redux/actions/ui';
 import user from '../../api/user';
-// import tv from '../../../api/tv';
-// import user from '../../../api/user';
-// import { saveTvChannelsData } from '../../../redux/actions/tv';
+import { saveUserData } from '../../redux/actions/user';
 
 const Popup = (props) => {
   const popupRef = React.createRef();
@@ -37,7 +35,15 @@ const Popup = (props) => {
       })
       .then(({ data }) => {
         if (data.success) {
-          // popupRef.current.classList.add('fadeOut'); // why this not working?
+          return user.get(`/${props.userId}`, config);
+        }
+      })
+      .then((res) => {
+        return res;
+      })
+      .then(({ data }) => {
+        if (data.success) {
+          props.dispatch(saveUserData(data));
           document
             .getElementsByClassName('popup-holder')[0]
             .classList.add('fadeOut');

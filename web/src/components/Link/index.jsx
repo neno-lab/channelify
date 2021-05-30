@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { closePopup, openPopup, openToast } from '../../redux/actions/ui';
 import { connect } from 'react-redux';
 import './style.scss';
+import { loggingOut } from '../../redux/actions/user';
 
 const Link = (props) => {
   const handleOnClick = (index) => {
@@ -45,6 +46,7 @@ const Link = (props) => {
         props.popupRef.current.classList.add('fadeOut');
         setTimeout(() => {
           props.dispatch(closePopup());
+          props.dispatch(loggingOut());
           props.history.push('/');
         }, 250);
 

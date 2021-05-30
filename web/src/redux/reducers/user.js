@@ -6,7 +6,6 @@ import {
 } from '../actions/actionTypes';
 
 const initialStateUser = {
-  isAuth: false,
   isLoggedIn: false,
   token: null,
   userData: {
@@ -32,6 +31,7 @@ const user = (state = initialStateUser, action) => {
 
     case SAVE_USER_DATA:
       let user_data = action.data.user;
+      console.log('user_data: ', user_data);
       return {
         ...state,
         userData: {
@@ -57,6 +57,17 @@ const user = (state = initialStateUser, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        userData: {
+          id: null,
+          firstName: null,
+          lastName: null,
+          email: null,
+          location: null,
+          endpoint: null,
+          auth: null,
+          p256dh: null,
+          watchingChannel: null,
+        },
       };
 
     default:

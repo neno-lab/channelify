@@ -2,7 +2,6 @@ import React from 'react';
 import tv from '../../api/tv';
 import TvChannelCard from '../TvChannelCard';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import './style.scss';
 import { saveTvChannelsData } from '../../redux/actions/tv';
 

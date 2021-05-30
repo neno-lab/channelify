@@ -10,6 +10,34 @@
   letter-spacing: normal;
   margin-bottom: 42px;
   cursor: pointer;
+  transition: 0.25s ease;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: '';
+    transition: 0.25s ease;
+    height: 2px;
+    width: 0;
+    bottom: -5px;
+    left: 0;
+    border-radius: 1px;
+    background-color: $white;
+  }
+
+  .active {
+    &::before {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
+  }
 
   &:last-of-type {
     margin-bottom: 0px;

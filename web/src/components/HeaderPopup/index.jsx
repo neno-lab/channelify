@@ -7,6 +7,8 @@ import './style.scss';
 const HeaderPopup = (props) => {
   const popupRef = React.createRef();
 
+  console.log(props.location);
+
   return (
     <div className='header-popup' ref={popupRef}>
       <i

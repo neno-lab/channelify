@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveToken, saveUserData } from '../../redux/actions/user';
 import { urlBase64ToUint8Array } from '../../helpers';
-import { setLoader, unsetLoader } from '../../redux/actions/ui';
+import { openToast, setLoader, unsetLoader } from '../../redux/actions/ui';
 
 const RegisterForm = (props) => {
   const {
@@ -75,16 +75,14 @@ const RegisterForm = (props) => {
           setTimeout(() => {
             props.dispatch(unsetLoader());
             props.history.push('/tv-channels');
+            props.dispatch(openToast('Logged In!', 'success'));
           }, 1000);
         }
       })
       .catch((err) => console.error('Server Error: ', err));
   };
 
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
-
+  // co
   return (
     <form className='register-form' onSubmit={handleSubmit(onSubmit)}>
       <h1 className='register-form-title'>Sign Up</h1>

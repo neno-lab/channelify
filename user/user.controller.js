@@ -6,8 +6,6 @@ const webpush = require('web-push');
 async function register(req, res) {
   const { first_name, last_name, email, password } = req.body;
 
-  console.log('REGISTER');
-
   const user = await db.query('SELECT * FROM users WHERE user_email = $1', [
     email,
   ]);
@@ -53,8 +51,6 @@ async function register(req, res) {
 
 async function login(req, res) {
   const { email, password } = req.body;
-
-  console.log('LOGIN');
 
   const user = await db.query('SELECT * FROM users WHERE user_email = $1', [
     email,
@@ -180,13 +176,6 @@ async function saveSubscription(req, res) {
 }
 
 async function sendNotification(req, res) {
-  // const values = await db.query(
-  //   'SELECT user_id, user_location, tv_channel_id_fk, user_endpoint, user_auth, user_p256dh FROM users WHERE NOT user_id = $1', req.params.id
-  // );
-  // // const data = values.rows[0];
-  // const subscriptionData=values.rows;
-  // console.log('VALUES: ', values.rows);
-
   const test = await db.query(
     'SELECT user_endpoint, user_auth, user_p256dh FROM users WHERE user_id = $1',
     [req.params.id]
@@ -205,6 +194,17 @@ async function sendNotification(req, res) {
   webpush
     .sendNotification(subscription, payload)
     .catch((err) => console.error(err));
+}
+
+async function broadcast() {
+  const { location } = req.body;
+
+  const values = await db.query(
+    'SELECT user_id, user_endpoint, user_auth, user_p256dh FROM users WHERE NOT user_id = $1 AND user_location = $2 AND tv_channel_id_fk = NULL',
+    [req.params.id, location]
+  );
+
+  console.log('saibaba: ', values.rows);
 
   res.status(200).json({
     success: true,
@@ -218,4 +218,5 @@ module.exports = {
   saveSubscription,
   sendNotification,
   getSingleUserData,
+  broadcast,
 };

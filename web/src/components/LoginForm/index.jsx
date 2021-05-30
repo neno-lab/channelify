@@ -43,10 +43,6 @@ const LoginForm = (props) => {
       });
   };
 
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
-
   return (
     <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
       <h1 className='login-form-title'>Sign In</h1>

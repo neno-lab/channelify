@@ -11,7 +11,7 @@ const TvChannels = (props) => {
     if (!props.isLoggedIn) {
       props.history.push('/');
     }
-  }, []);
+  }, [props.history, props.isLoggedIn]);
 
   return (
     <>

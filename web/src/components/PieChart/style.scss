@@ -1,0 +1,18 @@
+.pie-holder {
+  height: auto;
+  @media (min-width: 1025px) {
+    width: 500px;
+  }
+
+  @media (min-width: 500px) and (max-width: 1024px) {
+    width: 400px;
+  }
+
+  @media (min-width: 375px) and (max-width: 499px) {
+    width: 350px;
+  }
+
+  @media (max-width: 374px) {
+    width: 300px;
+  }
+}
