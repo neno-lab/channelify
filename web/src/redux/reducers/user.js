@@ -56,6 +56,7 @@ const user = (state = initialStateUser, action) => {
     case LOGGING_OUT:
       return {
         ...state,
+        token: null,
         isLoggedIn: false,
         userData: {
           id: null,
