@@ -1,7 +1,13 @@
+@import '../../styles/anims';
+
 .tv-channels {
   max-width: 1180px;
   padding: 15px 0;
   margin: 0 auto;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
 
   @media (max-width: 1024px) {
     padding: 15px;

@@ -1,6 +1,12 @@
+@import '../../styles/anims';
+
 .statistics {
   display: flex;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 85px);
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
 }
