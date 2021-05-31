@@ -176,39 +176,18 @@ async function saveSubscription(req, res) {
 }
 
 async function sendNotification(req, res) {
-  const test = await db.query(
-    'SELECT user_endpoint, user_auth, user_p256dh FROM users WHERE user_id = $1',
-    [req.params.id]
-  );
-
-  let subscription = {
-    endpoint: test.rows[0].user_endpoint,
-    keys: { auth: test.rows[0].user_auth, p256dh: test.rows[0].user_p256dh },
-  };
-
-  const payload = JSON.stringify({
-    title: 'IDE GAAASSS!!!',
-    content: 'MRALE CONTENT!!!',
-  });
-
-  webpush
-    .sendNotification(subscription, payload)
-    .catch((err) => console.error(err));
-}
-
-async function broadcast(req, res) {
-  const test = await db.query(
+  const data = await db.query(
     'SELECT user_endpoint, user_auth, user_p256dh FROM users WHERE NOT user_id = $1 AND user_location = $2 AND tv_channel_id_fk is null',
     [req.params.id, req.params.location]
   );
 
   const payload = JSON.stringify({
-    title: 'test!!!',
-    content: 'test123',
+    title: req.params.name,
+    content: 'Are you watching the TV?',
   });
 
-  if (test.rows.length !== 0) {
-    test.rows.forEach((subscription) => {
+  if (data.rows.length !== 0) {
+    data.rows.forEach((subscription) => {
       webpush
         .sendNotification(
           {
@@ -243,5 +222,4 @@ module.exports = {
   saveSubscription,
   sendNotification,
   getSingleUserData,
-  broadcast,
 };

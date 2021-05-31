@@ -8,8 +8,7 @@ router
   .post('/login', ctrl.login)
   .put('/save-subscription/:id', ctrl.saveSubscription)
   .use(authorization)
-  .get('/send-notification/:id', ctrl.sendNotification)
-  .get('/broadcast/:id/:location', ctrl.broadcast)
+  .get('/send-notification/:id/:location/:name', ctrl.sendNotification)
   .put('/location/:id', ctrl.updateLocation)
   .get('/:id', ctrl.getSingleUserData);
 
