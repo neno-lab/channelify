@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
 import PieChart from '../../components/PieChart';
-import user from '../../api/user';
 
 const Statistics = (props) => {
   React.useEffect(() => {

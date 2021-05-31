@@ -46,6 +46,20 @@ const App = (props) => {
     }
   }, [props.isPopupOpen]);
 
+  if (window.DeviceOrientationEvent) {
+    console.log('DeviceOrientation is supported!');
+
+    window.addEventListener(
+      'deviceorientation',
+      (e) => {
+        console.log('Saibaba: ', e.alpha);
+      },
+      true
+    );
+  } else {
+    console.log('DeviceOrientation is not supported!');
+  }
+
   return (
     <>
       {props.isLoading && <Loader />}

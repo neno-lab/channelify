@@ -9,7 +9,7 @@ const Login = (props) => {
     if (props.isLoggedIn) {
       props.history.push('/tv-channels');
     }
-  }, [props.history]);
+  }, [props.history, props.isLoggedIn]);
 
   return (
     <div className='login'>
