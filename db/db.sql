@@ -13,7 +13,9 @@ CREATE TABLE users(
     user_email VARCHAR(200) NOT NULL UNIQUE,
     user_password VARCHAR(200) NOT NULL,
     user_location VARCHAR(200),
-    user_notification_watching BOOLEAN DEFAULT FALSE,
+    user_endpoint VARCHAR (200),
+    user_auth VARCHAR (200),
+    user_p256dh VARCHAR (200),
     tv_channel_id_fk BIGINT REFERENCES tv_channels (tv_channel_id)
 );
 
