@@ -17,6 +17,26 @@ const TvChannelCard = (props) => {
   //     });
   //   }
   // };
+  // const fetchData = () => {
+  //   let config = {
+  //     headers: {
+  //       Authorization: `Bearer ${props.token}`,
+  //     },
+  //   };
+
+  //   user
+  //     .get(`/broadcast/${props.userId}/${props.userLocation}`, config)
+  //     .then((res) => {
+  //       return res;
+  //     })
+  //     .then(({ data }) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log('Server Error: ', err);
+  //     });
+
+  // };
 
   const handleOnClick = (index, tvChannelId) => {
     let config = {
@@ -45,7 +65,10 @@ const TvChannelCard = (props) => {
         .then(({ data }) => {
           // console.log('data: ', data);
           if (data.success) {
-            return user.get(`/send-notification/${props.userId}`, config);
+            return user.get(
+              `/send-notification/${props.userId}/${props.userLocation}/${props.firstName}`,
+              config
+            );
           }
         })
         .then((res) => {
@@ -139,6 +162,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userId: state.user.userData.id,
     token: state.user.token,
+    userLocation: state.user.userData.location,
+    token: state.user.token,
+    firstName: state.user.userData.firstName,
   };
 };
 
