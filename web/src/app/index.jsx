@@ -49,13 +49,9 @@ const App = (props) => {
   if (window.DeviceOrientationEvent) {
     console.log('DeviceOrientation is supported!');
 
-    window.addEventListener(
-      'deviceorientation',
-      (e) => {
-        console.log('Saibaba: ', e.alpha);
-      },
-      true
-    );
+    window.addEventListener('deviceorientation', function (event) {
+      console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
+    });
   } else {
     console.log('DeviceOrientation is not supported!');
   }
