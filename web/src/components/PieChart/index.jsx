@@ -32,7 +32,7 @@ const PieChart = (props) => {
     datasets: [
       {
         label: 'test label',
-        data: [20, 30, 52, 35],
+        data: props.tvChannelAmount,
         backgroundColor: [
           'rgb(255, 186, 103)',
           'rgb(96, 47, 68)',
