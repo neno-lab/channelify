@@ -46,15 +46,15 @@ const App = (props) => {
     }
   }, [props.isPopupOpen]);
 
-  if (window.DeviceOrientationEvent) {
-    console.log('DeviceOrientation is supported!');
+  // if (window.DeviceOrientationEvent) {
+  //   console.log('DeviceOrientation is supported!');
 
-    window.addEventListener('deviceorientation', function (event) {
-      console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
-    });
-  } else {
-    console.log('DeviceOrientation is not supported!');
-  }
+  //   window.addEventListener('deviceorientation', function (event) {
+  //     console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
+  //   });
+  // } else {
+  //   console.log('DeviceOrientation is not supported!');
+  // }
 
   return (
     <>
