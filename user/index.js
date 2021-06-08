@@ -10,7 +10,8 @@ router
   .use(authorization)
   .get('/send-notification/:id/:location/:name', ctrl.sendNotification)
   .put('/location/:id', ctrl.updateLocation)
-  .get('/:id', ctrl.getSingleUserData);
+  .get('/:id', ctrl.getSingleUserData)
+  .get('/count', ctrl.countUsers);
 
 module.exports = {
   path: '/users',

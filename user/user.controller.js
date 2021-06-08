@@ -148,15 +148,6 @@ async function getSingleUserData(req, res) {
 async function saveSubscription(req, res) {
   const { newSub } = req.body;
 
-  // const payload = JSON.stringify({ title: 'Push Test' });
-
-  // console.log('MRALE: ', subscription);
-  // console.log('SAIBABA: ', payload);
-
-  // webpush
-  //   .sendNotification(subscription, payload)
-  //   .catch((err) => console.error(err));
-
   const result_subscription = await db.query(
     'UPDATE users SET user_endpoint = $1, user_auth = $2, user_p256dh = $3 WHERE user_id = $4 RETURNING *',
     [newSub.endpoint, newSub.keys.auth, newSub.keys.p256dh, req.params.id]
@@ -215,6 +206,14 @@ async function sendNotification(req, res) {
   }
 }
 
+async function countUsers(req, res) {
+  console.log('ALO BRE E BRE');
+
+  return res.status(200).json({
+    success: true,
+  });
+}
+
 module.exports = {
   register,
   login,
@@ -222,4 +221,5 @@ module.exports = {
   saveSubscription,
   sendNotification,
   getSingleUserData,
+  countUsers,
 };
