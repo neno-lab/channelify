@@ -6,38 +6,6 @@ import tv from '../../api/tv';
 import { saveUserData } from '../../redux/actions/user';
 
 const TvChannelCard = (props) => {
-  // const displayConfirmNotification = () => {
-  //   if ('serviceWorker' in navigator) {
-  //     let options = {
-  //       body: 'You successfully subscribed to our Notification service!',
-  //     };
-
-  //     navigator.serviceWorker.ready.then((swreg) => {
-  //       swreg.showNotification('Succefully subscribed!', options);
-  //     });
-  //   }
-  // };
-  // const fetchData = () => {
-  //   let config = {
-  //     headers: {
-  //       Authorization: `Bearer ${props.token}`,
-  //     },
-  //   };
-
-  //   user
-  //     .get(`/broadcast/${props.userId}/${props.userLocation}`, config)
-  //     .then((res) => {
-  //       return res;
-  //     })
-  //     .then(({ data }) => {
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log('Server Error: ', err);
-  //     });
-
-  // };
-
   const handleOnClick = (index, tvChannelId) => {
     let config = {
       headers: {
@@ -63,7 +31,6 @@ const TvChannelCard = (props) => {
           return res;
         })
         .then(({ data }) => {
-          // console.log('data: ', data);
           if (data.success) {
             return user.get(
               `/send-notification/${props.userId}/${props.userLocation}/${props.firstName}`,

@@ -46,25 +46,6 @@ const App = (props) => {
     }
   }, [props.isPopupOpen]);
 
-  const [orientations, setOrientations] = React.useState(null);
-
-  React.useEffect(() => {
-    window.addEventListener(
-      'deviceorientation',
-      (e) => {
-        setOrientations({
-          absolute: e.absolute,
-          alpha: e.alpha,
-          beta: e.beta,
-          gamma: e.gamma,
-        });
-      },
-      true
-    );
-  }, []);
-
-  console.log('orientations: ', orientations);
-
   return (
     <>
       {props.isLoading && <Loader />}

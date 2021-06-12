@@ -10,30 +10,3 @@ export const urlBase64ToUint8Array = (base64String) => {
   }
   return outputArray;
 };
-
-export const displayConfirmNotification = () => {
-  if ('serviceWorker' in navigator) {
-    let options = {
-      body: 'You successfully subscribed to our Notification service!',
-    };
-
-    navigator.serviceWorker.ready.then((swreg) => {
-      swreg.showNotification('Succefully subscribed!', options);
-    });
-  }
-};
-
-export const configurePushSub = () => {
-  return;
-};
-
-export const askForNotificationPermission = () => {
-  Notification.requestPermission((result) => {
-    if (result !== 'granted') {
-      console.log('User Denied Notifications!');
-    } else {
-      // displayConfirmNotification();
-      // configurePushSub()
-    }
-  });
-};

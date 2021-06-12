@@ -31,7 +31,6 @@ const user = (state = initialStateUser, action) => {
 
     case SAVE_USER_DATA:
       let user_data = action.data.user;
-      console.log('user_data: ', user_data);
       return {
         ...state,
         userData: {
