@@ -46,15 +46,24 @@ const App = (props) => {
     }
   }, [props.isPopupOpen]);
 
-  // if (window.DeviceOrientationEvent) {
-  //   console.log('DeviceOrientation is supported!');
+  const [orientations, setOrientations] = React.useState(null);
 
-  //   window.addEventListener('deviceorientation', function (event) {
-  //     console.log(event.alpha + ' : ' + event.beta + ' : ' + event.gamma);
-  //   });
-  // } else {
-  //   console.log('DeviceOrientation is not supported!');
-  // }
+  React.useEffect(() => {
+    window.addEventListener(
+      'deviceorientation',
+      (e) => {
+        setOrientations({
+          absolute: e.absolute,
+          alpha: e.alpha,
+          beta: e.beta,
+          gamma: e.gamma,
+        });
+      },
+      true
+    );
+  }, []);
+
+  console.log('orientations: ', orientations);
 
   return (
     <>
