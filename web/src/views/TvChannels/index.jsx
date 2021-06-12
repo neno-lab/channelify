@@ -14,24 +14,6 @@ const TvChannels = (props) => {
     }
   }, [props.history, props.isLoggedIn]);
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let config = {
-          headers: {
-            Authorization: `Bearer ${props.token}`,
-          },
-        };
-
-        const response = await user.get('/count', config);
-        console.log('APP RES: ', response);
-      } catch (err) {
-        console.log('Error: ', err);
-      }
-    };
-    fetchData();
-  }, []);
-
   return (
     <>
       <Header />

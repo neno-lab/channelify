@@ -206,14 +206,6 @@ async function sendNotification(req, res) {
   }
 }
 
-async function countUsers(req, res) {
-  console.log('ALO BRE E BRE');
-
-  return res.status(200).json({
-    success: true,
-  });
-}
-
 module.exports = {
   register,
   login,
@@ -221,5 +213,4 @@ module.exports = {
   saveSubscription,
   sendNotification,
   getSingleUserData,
-  countUsers,
 };
